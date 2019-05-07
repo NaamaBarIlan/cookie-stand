@@ -38,6 +38,7 @@ var firstAndPike = {
   maxCust: 65,
   avgCookieSale: 6.3,
   hourlySales: [],
+  dailyTotal: 0,
   hourlySalesCalc: function(){
     for(var i =0; i < storeHours.length; i++){
       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
@@ -55,6 +56,22 @@ var firstAndPike = {
       // append the element to the dom
       firstAndPikeStore.appendChild(liEl);
     }
+    liEl = document.createElement('li');
+
+    liEl.textContent = 'Daily Total: ' + this.dailyTotal;
+
+    firstAndPikeStore.appendChild(liEl);
+
+  },
+  dailyTotalSum: function(){
+    for (var i = 0; i < this.hourlySales.length; i++){
+      this.dailyTotal += this.hourlySales[i];
+    }
+  },
+  allCall: function(){
+    this.hourlySalesCalc();
+    this.dailyTotalSum();
+    this.render();
   }
 };
 
@@ -67,6 +84,7 @@ var seaTacAirport = {
   maxCust: 24,
   avgCookieSale: 1.2,
   hourlySales: [],
+  dailyTotal: 0,
   hourlySalesCalc: function(){
     for(var i =0; i < storeHours.length; i++){
       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
@@ -84,6 +102,22 @@ var seaTacAirport = {
       // append the element to the dom
       seatacAirportStore.appendChild(liEl);
     }
+    liEl = document.createElement('li');
+
+    liEl.textContent = 'Daily Total: ' + this.dailyTotal;
+
+    firstAndPikeStore.appendChild(liEl);
+
+  },
+  dailyTotalSum: function(){
+    for (var i = 0; i < this.hourlySales.length; i++){
+      this.dailyTotal += this.hourlySales[i];
+    }
+  },
+  allCall: function(){
+    this.hourlySalesCalc();
+    this.dailyTotalSum();
+    this.render();
   }
 };
 
@@ -96,6 +130,7 @@ var seattleCenter = {
   maxCust: 38,
   avgCookieSale: 3.7,
   hourlySales: [],
+  dailyTotal: 0,
   hourlySalesCalc: function(){
     for(var i =0; i < storeHours.length; i++){
       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
@@ -113,6 +148,16 @@ var seattleCenter = {
       // append the element to the dom
       seattleCenterStore.appendChild(liEl);
     }
+  },
+  dailyTotalSum: function(){
+    for (var i = 0; i < this.hourlySales.length; i++){
+      this.dailyTotal += this.hourlySales[i];
+    }
+  },
+  allCall: function(){
+    this.hourlySalesCalc();
+    this.dailyTotalSum();
+    this.render();
   }
 };
 
@@ -125,6 +170,7 @@ var capitolHill = {
   maxCust: 38,
   avgCookieSale: 2.3,
   hourlySales: [],
+  dailyTotal: 0,
   hourlySalesCalc: function(){
     for(var i =0; i < storeHours.length; i++){
       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
@@ -142,6 +188,16 @@ var capitolHill = {
       // append the element to the dom
       capitolHillStore.appendChild(liEl);
     }
+  },
+  dailyTotalSum: function(){
+    for (var i = 0; i < this.hourlySales.length; i++){
+      this.dailyTotal += this.hourlySales[i];
+    }
+  },
+  allCall: function(){
+    this.hourlySalesCalc();
+    this.dailyTotalSum();
+    this.render();
   }
 };
 
@@ -154,6 +210,7 @@ var alki = {
   maxCust: 16,
   avgCookieSale: 4.6,
   hourlySales: [],
+  dailyTotal: 0,
   hourlySalesCalc: function(){
     for(var i =0; i < storeHours.length; i++){
       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
@@ -171,36 +228,25 @@ var alki = {
       // append the element to the dom
       alkiStore.appendChild(liEl);
     }
+  },
+  dailyTotalSum: function(){
+    for (var i = 0; i < this.hourlySales.length; i++){
+      this.dailyTotal += this.hourlySales[i];
+    }
+  },
+  allCall: function(){
+    this.hourlySalesCalc();
+    this.dailyTotalSum();
+    this.render();
   }
 };
 
-// Calling the hourlySalesCalc functions
+// Calling all the functions
 
-firstAndPike.hourlySalesCalc();
-seaTacAirport.hourlySalesCalc();
-seattleCenter.hourlySalesCalc();
-capitolHill.hourlySalesCalc();
-alki.hourlySalesCalc();
-
-// Calling the render functions
-
-firstAndPike.render();
-seaTacAirport.render();
-seattleCenter.render();
-capitolHill.render();
-alki.render();
-
-// Array of all store objects:
-
-// var allStores = [firstAndPike.render(), seaTacAirport.render(), seattleCenter.render(), capitolHill.render(), alki.render()];
-
-// Iterate over the array
-// for loop: call method in each object that generates # of cookies each hour per store and
-// Append array values to the DOM
-
-// var allStoresSales = {
-//     for (var i = 0; i < allStores.length; i++){
-//     } 
-// };
+firstAndPike.allCall();
+seaTacAirport.allCall();
+seattleCenter.allCall();
+capitolHill.allCall();
+alki.allCall();
 
 
