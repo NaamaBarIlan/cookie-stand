@@ -106,7 +106,7 @@ var seaTacAirport = {
 
     liEl.textContent = 'Daily Total: ' + this.dailyTotal;
 
-    firstAndPikeStore.appendChild(liEl);
+    seatacAirportStore.appendChild(liEl);
 
   },
   dailyTotalSum: function(){
@@ -148,6 +148,12 @@ var seattleCenter = {
       // append the element to the dom
       seattleCenterStore.appendChild(liEl);
     }
+    liEl = document.createElement('li');
+
+    liEl.textContent = 'Daily Total: ' + this.dailyTotal;
+
+    seattleCenterStore.appendChild(liEl);
+
   },
   dailyTotalSum: function(){
     for (var i = 0; i < this.hourlySales.length; i++){
@@ -188,6 +194,11 @@ var capitolHill = {
       // append the element to the dom
       capitolHillStore.appendChild(liEl);
     }
+    liEl = document.createElement('li');
+
+    liEl.textContent = 'Daily Total: ' + this.dailyTotal;
+
+    capitolHillStore.appendChild(liEl);
   },
   dailyTotalSum: function(){
     for (var i = 0; i < this.hourlySales.length; i++){
@@ -228,6 +239,11 @@ var alki = {
       // append the element to the dom
       alkiStore.appendChild(liEl);
     }
+    liEl = document.createElement('li');
+
+    liEl.textContent = 'Daily Total: ' + this.dailyTotal;
+
+    alkiStore.appendChild(liEl);
   },
   dailyTotalSum: function(){
     for (var i = 0; i < this.hourlySales.length; i++){
