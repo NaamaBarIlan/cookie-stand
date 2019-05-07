@@ -17,7 +17,7 @@ var allStores = [];
 
 // Access to the table in the DOM
 
-var tableElement = document.getElementById('pats-salmon-cookies');
+var storesTable = document.getElementById('pats-salmon-cookies');
 
 // STORE CONSTRUCTOR
 
@@ -43,13 +43,13 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
       liEl.textContent = storeHours[i] + ': ' + this.hourlySales[i] + ' cookies.';
 
       // append the element to the dom
-      tableElement.appendChild(liEl);
+      storesTable.appendChild(liEl);
     }
     liEl = document.createElement('li');
 
     liEl.textContent = 'Daily Total: ' + this.dailyTotal;
 
-    tableElement.appendChild(liEl);
+    storesTable.appendChild(liEl);
 
   };
   this.dailyTotalSum = function(){
@@ -65,28 +65,46 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   allStores.push(this);
 }
 
-// STORE INSTANCES 
+// STORE INSTANCES
 
-var pike = new Store('1st and Pike', 23, 65, 6.3);
-pike.allCall();
+// var pike = new Store('1st and Pike', 23, 65, 6.3);
+// pike.allCall();
 
-var seaTac = new Store('SeaTac Airport', 3, 24, 1.2);
-seaTac.allCall();
+// var seaTac = new Store('SeaTac Airport', 3, 24, 1.2);
+// seaTac.allCall();
 
-var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
-seattleCenter.allCall();
+// var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
+// seattleCenter.allCall();
 
-var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
-capitolHill.allCall();
+// var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
+// capitolHill.allCall();
 
-var alki = new Store('Alki', 2, 16, 4.6);
-alki.allCall();
+// var alki = new Store('Alki', 2, 16, 4.6);
+// alki.allCall();
 
 // TABLE HEADER FUNCTION
 
-// function makeHeaderRow(){
+function makeHeaderRow(){
+  // create the row
+  var trEl = document.createElement('tr');
+  // create, content, append first cell
+  var thEl = document.createElement('th');
+  thEl.textContent = 'Hours/Locations';
+  trEl.appendChild(thEl);
+  // Loop through storeHours array for cells
+  for (var i = 0; i < storeHours.length; i++){
+    var thEl = document.createElement('th');
+    thEl.textContent = storeHours[i];
+    trEl.appendChild(thEl);
+  }
+  // append the row to the table
+  storesTable.appendChild(trEl);
+}
 
-// }
+
+// CALL FUNCTIONS
+
+makeHeaderRow();
 
 // 1. Create JS object literals for each shop that
 // Stores the min/max hourly customers, and the average cookies per customer, in object properties
