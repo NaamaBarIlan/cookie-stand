@@ -1,7 +1,31 @@
-ul {
-  margin: 20px;
+
+body {
+  font-family: 'Lato', sans-serif;
 }
 
-h2 {
-  margin: 20px;
+h1 {
+  margin: 40px;
+  font-size: 40px;
+  font-weight: bolder;
+  text-align: center;
 }
+
+table {
+  /* source from granneman.com*/
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+th{
+  background-color: rgba(164, 220, 252, 0.721);
+  padding: 10px;
+  font-weight: bold;
+}
+
+td{
+  background-color: rgba(236, 247, 253, 0.721);
+  padding: 10px;
+  text-align: center;
+
+}
+
