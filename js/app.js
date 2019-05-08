@@ -56,6 +56,7 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
     for (var i = 0; i < this.hourlySales.length; i++){
       this.dailyTotal += this.hourlySales[i];
     }
+    console.log(this.dailyTotalSum);
   };
   this.allCall = function(){
     this.hourlySalesCalc();
@@ -67,44 +68,80 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
 
 // STORE INSTANCES
 
-// var pike = new Store('1st and Pike', 23, 65, 6.3);
-// pike.allCall();
+var pike = new Store('1st and Pike', 23, 65, 6.3);
+pike.allCall();
 
-// var seaTac = new Store('SeaTac Airport', 3, 24, 1.2);
-// seaTac.allCall();
+var seaTac = new Store('SeaTac Airport', 3, 24, 1.2);
+seaTac.allCall();
 
-// var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
-// seattleCenter.allCall();
+var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
+seattleCenter.allCall();
 
-// var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
-// capitolHill.allCall();
+var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
+capitolHill.allCall();
 
-// var alki = new Store('Alki', 2, 16, 4.6);
-// alki.allCall();
+var alki = new Store('Alki', 2, 16, 4.6);
+alki.allCall();
 
 // TABLE HEADER FUNCTION
 
 function makeHeaderRow(){
   // create the row
   var trEl = document.createElement('tr');
+
   // create, content, append first cell
   var thEl = document.createElement('th');
   thEl.textContent = 'Hours/Locations';
   trEl.appendChild(thEl);
+
   // Loop through storeHours array for cells
   for (var i = 0; i < storeHours.length; i++){
-    var thEl = document.createElement('th');
+    thEl = document.createElement('th');
     thEl.textContent = storeHours[i];
     trEl.appendChild(thEl);
   }
+
+  // create, content, append total cell
+  thEl = document.createElement('th');
+  thEl.textContent = 'Daily Location Total';
+  trEl.appendChild(thEl);
+
   // append the row to the table
   storesTable.appendChild(trEl);
 }
 
+// TABLE DATA FUNCTION
+
+function makeDataRows(){
+
+  // create the row
+  var trEl = document.createElement('tr');
+
+  // create, content, append first cell
+  var tdEL = document.createElement('td');
+  tdEL.textContent = pike.storeLocation;
+  trEl.appendChild(tdEL);
+
+  // Loop through storeHours array for cookies per hour per location
+  for (var i = 0; i < storeHours.length; i++){
+    tdEL = document.createElement('td');
+    tdEL.textContent = pike.hourlySales[i];
+    trEl.appendChild(tdEL);
+  }
+
+  // create, content, append total cell
+  tdEL = document.createElement('td');
+  tdEL.textContent = pike.dailyTotal;
+  trEl.appendChild(tdEL);
+
+  // append the row to the table
+  storesTable.appendChild(trEl);
+}
 
 // CALL FUNCTIONS
 
 makeHeaderRow();
+makeDataRows();
 
 // 1. Create JS object literals for each shop that
 // Stores the min/max hourly customers, and the average cookies per customer, in object properties
