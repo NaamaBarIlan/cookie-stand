@@ -13,7 +13,28 @@
 
         <h1>Pat's Salmon Cookies</h1>
 
-        <img src="img/salmon.png">
+        <form id="new-store-form">
+            <fieldset>
+                <legend>New Store Submission Form</legend>
+
+                <label for="store-location">Store Location:</label>
+                <input name="store-location" type="text" size="30" placeholder="Store Location" required/>
+
+                <label for="min-cust">Minimum number of customers per hour:</label>
+                <input name="min-cust" type="text" size="30" placeholder="Minimum number of customers per hour" required/>
+
+                <label for="max-cust">Maximum number of customers per hour:</label>
+                <input name="max-cust" type="text" size="30" placeholder="Maximum number of customers per hour" required/>
+
+                <label for="avgCookieSale">Average number of cookies purchased per customer:</label>
+                <input name="avgCookieSale" type="text" size="30" placeholder="Average number of cookies purchased per customer" required/>
+
+                <button type="submit">Add new store</button>
+
+            </fieldset>
+        </form>
+
+        <!-- <img src="img/salmon.png"> -->
 
         <script src="js/app.js" rel = "stylesheet"></script> 
 
