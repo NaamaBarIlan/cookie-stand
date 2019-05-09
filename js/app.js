@@ -1,11 +1,17 @@
 'use strict';
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 // source from MDN math.random
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// == DATA ==
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Global Variables
 
@@ -20,6 +26,7 @@ var totalAllLocationsPerHour = [];
 // Access to the table in the DOM
 
 var storesTable = document.getElementById('pats-salmon-cookies');
+var newStoreForm = document.getElementById('new-store-form');
 
 // STORE CONSTRUCTOR
 
@@ -89,17 +96,10 @@ var alki = new Store('Alki', 2, 16, 4.6);
 
 console.log('an array of arrays' + allHourlyTotals);
 
-// CALL FUNCTIONS
 
-makeHeaderRow();
-
-
-pike.allCall();
-seaTac.allCall();
-seattleCenter.allCall();
-capitolHill.allCall();
-alki.allCall();
-
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// == Function Declarations ==
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // TABLE HEADER FUNCTION
 
@@ -128,8 +128,6 @@ function makeHeaderRow(){
   storesTable.appendChild(trEl);
 }
 
-// 
-
 function allStoresHourlyTotals(){
   // Outer loop of arrays
   for (var i = 0; i < allHourlyTotals.length; i++){
@@ -142,9 +140,6 @@ function allStoresHourlyTotals(){
     totalAllLocationsPerHour.push(hourlySum);
   }
 }
-
-allStoresHourlyTotals();
-
 
 // TABLE FOOTER FUNCTION
 
@@ -169,4 +164,42 @@ function makeFooterRow(){
   storesTable.appendChild(trEl);
 }
 
+// Event handler function for the submission of a new store
+function handleNewStoreSubmit(event) {
+  console.log('log of event.target.who.value', event.target.who.value);
+
+  event.preventDefault(); // prevents page reload on a 'submit' event
+  
+  var newStore = new Comment();
+  // console.log('this is the Comment(Store?) instance', newStore);
+
+  // This empties the form fields after the data has been grabbed
+  event.target.who.value = null;
+  event.target.says.value = null;
+
+  newStore.render());
+}
+
+  
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// == Executable Code ==
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+// CALL FUNCTIONS
+
+makeHeaderRow();
+
+pike.allCall();
+seaTac.allCall();
+seattleCenter.allCall();
+capitolHill.allCall();
+alki.allCall();
+
+allStoresHourlyTotals();
 makeFooterRow();
+
+
+// Event listener for comment submission form
+
+newStoreForm.addEventListener('submit', handleNewStoreSubmit);

@@ -29,3 +29,24 @@ td{
 
 }
 
+form {
+  margin: 60px;
+  text-align: left;
+}
+
+input { 
+  border: 2px solid black;
+  padding: 5px;
+  margin: 15px;
+}
+
+fieldset{
+  border: 2px solid black;
+  padding: 10px;
+}
+
+legend{
+  padding: 10px;
+  text-align: left;
+  font-weight: bolder;
+}
