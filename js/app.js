@@ -14,10 +14,17 @@ var storeHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2p
 // STORE ARRAY
 
 var allStores = [];
+var footerHourlyTotals = [];
+var grandTotal = 0;
+
+// DOM ACCESS
 
 // Access to the table in the DOM
-
 var storesTable = document.getElementById('pats-salmon-cookies');
+
+// Access to the form in the Dom
+var newStoreForm = document.getElementById('new-store-form');
+
 
 // STORE CONSTRUCTOR
 
@@ -26,7 +33,10 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   this.minCust = minCust;
   this.maxCust = maxCust;
   this.avgCookieSale = avgCookieSale;
+
+  // Each stor's hourly sales
   this.hourlySales = [];
+
   this.dailyTotal = 0;
   this.hourlySalesCalc = function(){
     for(var i =0; i < storeHours.length; i++){
@@ -64,7 +74,7 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
     for (var i = 0; i < this.hourlySales.length; i++){
       this.dailyTotal += this.hourlySales[i];
     }
-    console.log(this.dailyTotalSum);
+    // console.log(this.dailyTotalSum);
   };
   this.allCall = function(){
     this.hourlySalesCalc();
@@ -73,6 +83,13 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   };
   allStores.push(this);
 }
+
+// // render all data of each istance
+// function renderAll(){
+//   for (var i = 0; i < allStores.length; i++){
+//     allStores[i].makeDataRows();
+//   }
+// }
 
 // STORE INSTANCES
 
@@ -92,6 +109,8 @@ seattleCenter.allCall();
 capitolHill.allCall();
 alki.allCall();
 
+footerHourlyTotalsCalc ();
+makeFooterRow();
 
 // TABLE HEADER FUNCTION
 
@@ -120,298 +139,107 @@ function makeHeaderRow(){
   storesTable.appendChild(trEl);
 }
 
-// TABLE DATA FUNCTION
+// TABLE FOOTER FUNCTION
 
-// function makeDataRows(){
+function makeFooterRow(){
 
-//   // create the row
-//   var trEl = document.createElement('tr');
+  // Create the footer
+  var tFoot = document.createElement('tfoot');
 
-//   // create, content, append first cell
-//   var tdEL = document.createElement('td');
-//   tdEL.textContent = pike.storeLocation;
-//   trEl.appendChild(tdEL);
+  // create the row
+  var trEl = document.createElement('tr');
 
-//   // Loop through storeHours array for cookies per hour per location
-//   for (var i = 0; i < storeHours.length; i++){
-//     tdEL = document.createElement('td');
-//     tdEL.textContent = pike.hourlySales[i];
-//     trEl.appendChild(tdEL);
-//   }
+  // create, content, append first cell
+  var tdEl = document.createElement('td');
+  tdEl.textContent = 'Totals';
+  trEl.appendChild(tdEl);
 
-//   // create, content, append total cell
-//   tdEL = document.createElement('td');
-//   tdEL.textContent = pike.dailyTotal;
-//   trEl.appendChild(tdEL);
+  // Loop through storeHours array for cells
+  for (var i = 0; i < storeHours.length; i++){
+    tdEl = document.createElement('td');
+    tdEl.textContent = footerHourlyTotals[i];
+    trEl.appendChild(tdEl);
+  }
 
-//   // append the row to the table
-//   storesTable.appendChild(trEl);
-// }
+  // create, content, append total cell
+  tdEl = document.createElement('td');
+  tdEl.textContent = grandTotal;
+  trEl.appendChild(tdEl);
 
-// 1. Create JS object literals for each shop that
-// Stores the min/max hourly customers, and the average cookies per customer, in object properties
+  // append the row to the footer
+  tFoot.appendChild(trEl);
 
-// 2. Uses a method of that object to generate a random number of customers per hour.
+  // append the footer to the table
+  storesTable.appendChild(tFoot);
+}
 
-// 3. Calculate and store the simulated amounts of cookies purchased for each hour at each location
-// using average cookies purchased and the random number of customers generated
+function footerHourlyTotalsCalc (){
+  for (var i = 0; i < storeHours.length; i++){
+    // local column total variable
+    var hourlySum = 0;
+    for (var j = 0; j < allStores.length; j++){
+      hourlySum += allStores[j].hourlySales[i];
+    }
+    grandTotal += hourlySum;
+    footerHourlyTotals[i] = hourlySum;
+  }
+}
 
-// 4. Store the results for each location in a separate array...
-// perhaps as a property of the object representing that location
+// EVENT HANDLER
 
-// 5. Display the values of each array as unordered lists in the browser
+// the event handler should take the data from the input field, pass it into the constructor function,
+// and create a new instance of a cookie stand that then appends to the table.
 
-// // LOCATION 1 - 1st and Pike
+function handleFormSubmit(event){
 
-// var firstAndPike = {
-//   storeLocation: '1st and Pike',
-//   minCust: 23,
-//   maxCust: 65,
-//   avgCookieSale: 6.3,
-//   hourlySales: [],
-//   dailyTotal: 0,
-//   hourlySalesCalc: function(){
-//     for(var i =0; i < storeHours.length; i++){
-//       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
-//     }
-//   },
-//   render: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
+  // event.preventDefault, b/c of the submit default
+  event.preventDefault();
+  
 
-//       // create an element
-//       var liEl = document.createElement('li');
+  // capture data from forms, fix types as needed
+  // var inputName = event.target.inputName.value;
 
-//       // give the elemet content
-//       liEl.textContent = storeHours[i] + ': ' + this.hourlySales[i] + ' cookies.';
-
-//       // append the element to the dom
-//       firstAndPikeStore.appendChild(liEl);
-//     }
-//     liEl = document.createElement('li');
-
-//     liEl.textContent = 'Daily Total: ' + this.dailyTotal;
-
-//     firstAndPikeStore.appendChild(liEl);
-
-//   },
-//   dailyTotalSum: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
-//       this.dailyTotal += this.hourlySales[i];
-//     }
-//   },
-//   allCall: function(){
-//     this.hourlySalesCalc();
-//     this.dailyTotalSum();
-//     this.render();
-//   }
-// };
+  var storeLocation = event.target.storelocation.value;
+  var minCustomers = event.target.mincust.value;
+  var maxCustomers = event.target.maxcust.value;
+  var avgCookieSale = event.target.avgCookieSale.value;
 
 
-// // LOCATION 2 - SeaTac Airport
 
-// var seaTacAirport = {
-//   storeLocation: 'SeaTac Airport',
-//   minCust: 3,
-//   maxCust: 24,
-//   avgCookieSale: 1.2,
-//   hourlySales: [],
-//   dailyTotal: 0,
-//   hourlySalesCalc: function(){
-//     for(var i =0; i < storeHours.length; i++){
-//       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
-//     }
-//   },
-//   render: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
+  // validate form data - done in html
 
-//       // create an element
-//       var liEl = document.createElement('li');
+  // use data to create a new store
+  var newStore = new Store(storeLocation, minCustomers, maxCustomers, avgCookieSale);
+  console.log('the all store array' + allStores[5]);
 
-//       // give the elemet content
-//       liEl.textContent = storeHours[i] + ': ' + this.hourlySales[i] + ' cookies.';
+  // Empty the previous table
 
-//       // append the element to the dom
-//       seatacAirportStore.appendChild(liEl);
-//     }
-//     liEl = document.createElement('li');
+  storesTable.innerHTML = '';
 
-//     liEl.textContent = 'Daily Total: ' + this.dailyTotal;
+  // This empties the form fields after the data has been grabbed
+  // event.target.inputName.value = null;
 
-//     seatacAirportStore.appendChild(liEl);
+  event.target.storelocation.value = null;
+  event.target.mincust.value = null;
+  event.target.maxcust.value = null;
+  event.target.avgCookieSale.value = null;
 
-//   },
-//   dailyTotalSum: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
-//       this.dailyTotal += this.hourlySales[i];
-//     }
-//   },
-//   allCall: function(){
-//     this.hourlySalesCalc();
-//     this.dailyTotalSum();
-//     this.render();
-//   }
-// };
+  // Repaint the page - render all
 
+  // renderAll();
+  makeHeaderRow();
 
-// // LOCATION 3 - Seattle Center
+  pike.allCall();
+  seaTac.allCall();
+  seattleCenter.allCall();
+  capitolHill.allCall();
+  alki.allCall();
+  newStore.allCall();
 
-// var seattleCenter = {
-//   storeLocation: 'Seattle Center',
-//   minCust: 11,
-//   maxCust: 38,
-//   avgCookieSale: 3.7,
-//   hourlySales: [],
-//   dailyTotal: 0,
-//   hourlySalesCalc: function(){
-//     for(var i =0; i < storeHours.length; i++){
-//       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
-//     }
-//   },
-//   render: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
+  footerHourlyTotalsCalc ();
+  makeFooterRow();
+}
 
-//       // create an element
-//       var liEl = document.createElement('li');
+// EVENT LISTENER for a new store
+newStoreForm.addEventListener('submit', handleFormSubmit);
 
-//       // give the elemet content
-//       liEl.textContent = storeHours[i] + ': ' + this.hourlySales[i] + ' cookies.';
-
-//       // append the element to the dom
-//       seattleCenterStore.appendChild(liEl);
-//     }
-//     liEl = document.createElement('li');
-
-//     liEl.textContent = 'Daily Total: ' + this.dailyTotal;
-
-//     seattleCenterStore.appendChild(liEl);
-
-//   },
-//   dailyTotalSum: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
-//       this.dailyTotal += this.hourlySales[i];
-//     }
-//   },
-//   allCall: function(){
-//     this.hourlySalesCalc();
-//     this.dailyTotalSum();
-//     this.render();
-//   }
-// };
-
-
-// // LOCATION 4 - Capitol Hill
-
-// var capitolHill = {
-//   storeLocation: 'Capitol Hill',
-//   minCust: 20,
-//   maxCust: 38,
-//   avgCookieSale: 2.3,
-//   hourlySales: [],
-//   dailyTotal: 0,
-//   hourlySalesCalc: function(){
-//     for(var i =0; i < storeHours.length; i++){
-//       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
-//     }
-//   },
-//   render: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
-
-//       // create an element
-//       var liEl = document.createElement('li');
-
-//       // give the elemet content
-//       liEl.textContent = storeHours[i] + ': ' + this.hourlySales[i] + ' cookies.';
-
-//       // append the element to the dom
-//       capitolHillStore.appendChild(liEl);
-//     }
-//     liEl = document.createElement('li');
-
-//     liEl.textContent = 'Daily Total: ' + this.dailyTotal;
-
-//     capitolHillStore.appendChild(liEl);
-//   },
-//   dailyTotalSum: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
-//       this.dailyTotal += this.hourlySales[i];
-//     }
-//   },
-//   allCall: function(){
-//     this.hourlySalesCalc();
-//     this.dailyTotalSum();
-//     this.render();
-//   }
-// };
-
-
-// // LOCATION 5 - Alki
-
-// var alki = {
-//   storeLocation: 'Alki',
-//   minCust: 2,
-//   maxCust: 16,
-//   avgCookieSale: 4.6,
-//   hourlySales: [],
-//   dailyTotal: 0,
-//   hourlySalesCalc: function(){
-//     for(var i =0; i < storeHours.length; i++){
-//       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
-//     }
-//   },
-//   render: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
-
-//       // create an element
-//       var liEl = document.createElement('li');
-
-//       // give the elemet content
-//       liEl.textContent = storeHours[i] + ': ' + this.hourlySales[i] + ' cookies.';
-
-//       // append the element to the dom
-//       alkiStore.appendChild(liEl);
-//     }
-//     liEl = document.createElement('li');
-
-//     liEl.textContent = 'Daily Total: ' + this.dailyTotal;
-
-//     alkiStore.appendChild(liEl);
-//   },
-//   dailyTotalSum: function(){
-//     for (var i = 0; i < this.hourlySales.length; i++){
-//       this.dailyTotal += this.hourlySales[i];
-//     }
-//   },
-//   allCall: function(){
-//     this.hourlySalesCalc();
-//     this.dailyTotalSum();
-//     this.render();
-//   }
-// };
-
-// // Calling all the functions
-
-// firstAndPike.allCall();
-// seaTacAirport.allCall();
-// seattleCenter.allCall();
-// capitolHill.allCall();
-// alki.allCall();
-
-  // this.render = function(){
-  //   for (var i = 0; i < this.hourlySales.length; i++){
-
-  //     // create an element
-  //     var liEl = document.createElement('li');
-
-  //     // give the elemet content
-  //     liEl.textContent = storeHours[i] + ': ' + this.hourlySales[i] + ' cookies.';
-
-  //     // append the element to the dom
-  //     storesTable.appendChild(liEl);
-  //   }
-  //   liEl = document.createElement('li');
-
-  //   liEl.textContent = 'Daily Total: ' + this.dailyTotal;
-
-  //   storesTable.appendChild(liEl);
-
-  // };
