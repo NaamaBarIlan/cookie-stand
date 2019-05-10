@@ -1,11 +1,17 @@
 'use strict';
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 // source from MDN math.random
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// == DATA ==
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Global Variables
 
@@ -21,6 +27,7 @@ var grandTotal = 0;
 
 // Access to the table in the DOM
 var storesTable = document.getElementById('pats-salmon-cookies');
+var newStoreForm = document.getElementById('new-store-form');
 
 // Access to the form in the Dom
 var newStoreForm = document.getElementById('new-store-form');
@@ -38,10 +45,13 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   this.hourlySales = [];
 
   this.dailyTotal = 0;
+
   this.hourlySalesCalc = function(){
     for(var i =0; i < storeHours.length; i++){
       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
     }
+    allHourlyTotals.push(this.hourlySales);
+    console.log('all hourly totals' + allHourlyTotals);
   };
 
   this.makeDataRows = function(){
@@ -99,15 +109,8 @@ var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 
-// CALL FUNCTIONS
+console.log('an array of arrays' + allHourlyTotals);
 
-makeHeaderRow();
-
-pike.allCall();
-seaTac.allCall();
-seattleCenter.allCall();
-capitolHill.allCall();
-alki.allCall();
 
 footerHourlyTotalsCalc ();
 makeFooterRow();
@@ -138,6 +141,7 @@ function makeHeaderRow(){
   // append the row to the table
   storesTable.appendChild(trEl);
 }
+
 
 // TABLE FOOTER FUNCTION
 

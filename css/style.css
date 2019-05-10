@@ -40,6 +40,7 @@ form {
 }
 
 input { 
+
   border: 1px solid black;
   padding: 5px;
   margin: 10px;
@@ -47,6 +48,7 @@ input {
 
 fieldset{
   background-color: rgba(232, 232, 232, 0.55);
+
   padding: 10px;
 }
 
@@ -56,3 +58,4 @@ legend{
   font-weight: bolder;
   font-size: 150%;
 }
+
