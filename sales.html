@@ -14,6 +14,23 @@
 
         <h1>Pat's Salmon Cookies</h1>
 
+        <form id="new-store-form">
+            <fieldset>
+                <legend>Add a New Store</legend>
+
+                <input name="storelocation" type="text" size="20" placeholder="Store Location" required/>
+
+                <input name="mincust" type="text" size="30" placeholder="Min number of customers per hour" required/>
+
+                <input name="maxcust" type="text" size="30" placeholder="Max number of customers per hour" required/>
+
+                <input name="avgCookieSale" type="text" size="40" placeholder="Avg number of cookies per customer" required/>
+
+                <button type="submit">Add new store</button>
+
+            </fieldset>
+        </form>
+
         <table id="pats-salmon-cookies"></table>
 
         <script src="js/app.js" rel = "stylesheet"></script> 

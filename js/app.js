@@ -20,13 +20,18 @@ var storeHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2p
 // STORE ARRAY
 
 var allStores = [];
-var allHourlyTotals = [];
-var totalAllLocationsPerHour = [];
+var footerHourlyTotals = [];
+var grandTotal = 0;
+
+// DOM ACCESS
 
 // Access to the table in the DOM
-
 var storesTable = document.getElementById('pats-salmon-cookies');
 var newStoreForm = document.getElementById('new-store-form');
+
+// Access to the form in the Dom
+var newStoreForm = document.getElementById('new-store-form');
+
 
 // STORE CONSTRUCTOR
 
@@ -35,7 +40,10 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   this.minCust = minCust;
   this.maxCust = maxCust;
   this.avgCookieSale = avgCookieSale;
+
+  // Each stor's hourly sales
   this.hourlySales = [];
+
   this.dailyTotal = 0;
 
   this.hourlySalesCalc = function(){
@@ -86,6 +94,13 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   allStores.push(this);
 }
 
+// // render all data of each istance
+// function renderAll(){
+//   for (var i = 0; i < allStores.length; i++){
+//     allStores[i].makeDataRows();
+//   }
+// }
+
 // STORE INSTANCES
 
 var pike = new Store('1st and Pike', 23, 65, 6.3);
@@ -97,9 +112,8 @@ var alki = new Store('Alki', 2, 16, 4.6);
 console.log('an array of arrays' + allHourlyTotals);
 
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// == Function Declarations ==
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+footerHourlyTotalsCalc ();
+makeFooterRow();
 
 // TABLE HEADER FUNCTION
 
@@ -128,22 +142,14 @@ function makeHeaderRow(){
   storesTable.appendChild(trEl);
 }
 
-function allStoresHourlyTotals(){
-  // Outer loop of arrays
-  for (var i = 0; i < allHourlyTotals.length; i++){
-    console.log('allHourlyTotals' + allHourlyTotals[i]);
-    var hourlySum = 0;
-    // Inner loop of arrays
-    for (var j = 0; j < allHourlyTotals[i].length; j++){
-      hourlySum = hourlySum + allHourlyTotals[j][i];
-    }
-    totalAllLocationsPerHour.push(hourlySum);
-  }
-}
 
 // TABLE FOOTER FUNCTION
 
 function makeFooterRow(){
+
+  // Create the footer
+  var tFoot = document.createElement('tfoot');
+
   // create the row
   var trEl = document.createElement('tr');
 
@@ -152,54 +158,92 @@ function makeFooterRow(){
   tdEl.textContent = 'Totals';
   trEl.appendChild(tdEl);
 
-  // Loop through totalAllLocationsPerHour array for cells
+  // Loop through storeHours array for cells
   for (var i = 0; i < storeHours.length; i++){
-    var tdEL = document.createElement('td');
-    tdEL.textContent = totalAllLocationsPerHour[i];
-    trEl.appendChild(tdEL);
+    tdEl = document.createElement('td');
+    tdEl.textContent = footerHourlyTotals[i];
+    trEl.appendChild(tdEl);
   }
-  // create, content, append total of totals cell
 
-  // append the row to the table
-  storesTable.appendChild(trEl);
+  // create, content, append total cell
+  tdEl = document.createElement('td');
+  tdEl.textContent = grandTotal;
+  trEl.appendChild(tdEl);
+
+  // append the row to the footer
+  tFoot.appendChild(trEl);
+
+  // append the footer to the table
+  storesTable.appendChild(tFoot);
 }
 
-// Event handler function for the submission of a new store
-function handleNewStoreSubmit(event) {
-  console.log('log of event.target.who.value', event.target.who.value);
+function footerHourlyTotalsCalc (){
+  for (var i = 0; i < storeHours.length; i++){
+    // local column total variable
+    var hourlySum = 0;
+    for (var j = 0; j < allStores.length; j++){
+      hourlySum += allStores[j].hourlySales[i];
+    }
+    grandTotal += hourlySum;
+    footerHourlyTotals[i] = hourlySum;
+  }
+}
 
-  event.preventDefault(); // prevents page reload on a 'submit' event
+// EVENT HANDLER
+
+// the event handler should take the data from the input field, pass it into the constructor function,
+// and create a new instance of a cookie stand that then appends to the table.
+
+function handleFormSubmit(event){
+
+  // event.preventDefault, b/c of the submit default
+  event.preventDefault();
   
-  var newStore = new Comment();
-  // console.log('this is the Comment(Store?) instance', newStore);
+
+  // capture data from forms, fix types as needed
+  // var inputName = event.target.inputName.value;
+
+  var storeLocation = event.target.storelocation.value;
+  var minCustomers = event.target.mincust.value;
+  var maxCustomers = event.target.maxcust.value;
+  var avgCookieSale = event.target.avgCookieSale.value;
+
+
+
+  // validate form data - done in html
+
+  // use data to create a new store
+  var newStore = new Store(storeLocation, minCustomers, maxCustomers, avgCookieSale);
+  console.log('the all store array' + allStores[5]);
+
+  // Empty the previous table
+
+  storesTable.innerHTML = '';
 
   // This empties the form fields after the data has been grabbed
-  event.target.who.value = null;
-  event.target.says.value = null;
+  // event.target.inputName.value = null;
 
-  newStore.render());
+  event.target.storelocation.value = null;
+  event.target.mincust.value = null;
+  event.target.maxcust.value = null;
+  event.target.avgCookieSale.value = null;
+
+  // Repaint the page - render all
+
+  // renderAll();
+  makeHeaderRow();
+
+  pike.allCall();
+  seaTac.allCall();
+  seattleCenter.allCall();
+  capitolHill.allCall();
+  alki.allCall();
+  newStore.allCall();
+
+  footerHourlyTotalsCalc ();
+  makeFooterRow();
 }
 
-  
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// == Executable Code ==
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// EVENT LISTENER for a new store
+newStoreForm.addEventListener('submit', handleFormSubmit);
 
-
-// CALL FUNCTIONS
-
-makeHeaderRow();
-
-pike.allCall();
-seaTac.allCall();
-seattleCenter.allCall();
-capitolHill.allCall();
-alki.allCall();
-
-allStoresHourlyTotals();
-makeFooterRow();
-
-
-// Event listener for comment submission form
-
-newStoreForm.addEventListener('submit', handleNewStoreSubmit);
