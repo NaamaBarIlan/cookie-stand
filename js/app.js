@@ -243,5 +243,4 @@ function handleFormSubmit(event){
 // EVENT LISTENER for a new store
 newStoreForm.addEventListener('submit', handleFormSubmit);
 
-// safe2 test comment 2
 
