@@ -56,3 +56,30 @@ legend{
   font-weight: bolder;
   font-size: 150%;
 }
+
+ul {
+  padding: 10px;
+  text-align: center;
+}
+
+li {
+  float: left;
+  padding: 10px;
+  font-weight: bolder;
+
+}
+
+.salmon {
+  width: 50px;
+}
+
+.chinook {
+  width: 50px;
+}
+
+.opacity{
+  opacity: 0.2;
+  width: 200px;
+  border-radius: 100px;
+  margin-top: 100px;
+}
