@@ -1,14 +1,129 @@
+/* ENTIRE PAGE */
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  width: 960px;
+  margin: 0px auto;
+}
+
+/* HEADER */
+
+header {
+  height: 100px;
+  background-color: rgba(232, 232, 232, 0.55);
+}
+
+header img {
+  float: left;
+  height: 50px;
+  margin: 25px 65px 25px 25px;
+  box-shadow: -5px 5px;
+}
+
+header li {
+  display: inline-block;
+  font-weight: bolder;
+  margin-right: 75px;
+  margin-top: 45px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+/* MAIN - Above Fold */
+
+main {
+  width: 960px;
+  margin: 0px auto;
 }
 
 h1 {
-  margin: 40px;
-  font-size: 40px;
+  font-family: 'Bungee Shade', cursive;
   font-weight: bolder;
   text-align: center;
+  font-size: 50px;
+  margin: 50px;
 }
+
+#hero {
+  width: 960px;
+  margin: 45px auto;
+}
+
+/* MAIN - Below Fold */
+
+main {
+  margin-bottom: 50px;
+}
+
+div {
+  background-color: rgba(232, 232, 232, 0.55);
+  width: 460px;
+  height: 300px;
+  float: left;
+  margin: 10px;
+}
+
+#classes {
+  clear: left;
+}
+
+.img-below-fold {
+  /* source: CSS filter Property @ w3schools.com */
+  -webkit-filter: grayscale(100%); 
+  filter: grayscale(100%); 
+
+  opacity: 0.8;
+  width: 120px;
+  border-radius: 130px;
+  float: left;
+  margin: 60px 35px 40px 40px;
+  box-shadow: -5px 5px;
+
+}
+
+h2 {
+  display: inline-block;
+  font-weight: bolder;
+  font-size: 25px;
+  margin-top: 65px;
+  margin-bottom: 25px;
+}
+
+p {
+  line-height: 24px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  margin-right: 25px;
+  text-align: justify;
+}
+
+/* FOOTER */
+
+#footer {
+  height: 100px;
+  background: white;
+  width: 960px;
+}
+
+#footer img {
+  /* source: CSS filter Property @ w3schools.com */
+  -webkit-filter: grayscale(100%); 
+  filter: grayscale(100%); 
+
+  opacity: 0.8;
+  width: 50px;
+  border-radius: 200px;
+  box-shadow: -2px 2px;
+
+  margin-top: 33px;
+  margin-left: 450px;
+}
+
+
+/* TABLE  */
 
 table {
   /* source from granneman.com*/
@@ -55,31 +170,4 @@ legend{
   text-align: left;
   font-weight: bolder;
   font-size: 150%;
-}
-
-ul {
-  padding: 10px;
-  text-align: center;
-}
-
-li {
-  float: left;
-  padding: 10px;
-  font-weight: bolder;
-
-}
-
-.salmon {
-  width: 50px;
-}
-
-.chinook {
-  width: 50px;
-}
-
-.opacity{
-  opacity: 0.2;
-  width: 200px;
-  border-radius: 100px;
-  margin-top: 100px;
 }
