@@ -123,36 +123,13 @@ p {
 }
 
 
-/* TABLE  */
-
-table {
-  /* source from granneman.com*/
-  margin-left:auto; 
-  margin-right:auto;
-}
-
-th{
-  background-color: rgba(164, 220, 252, 0.721);
-  padding: 10px;
-  font-weight: bold;
-}
-
-td{
-  background-color: rgba(236, 247, 253, 0.721);
-  padding: 10px;
-  text-align: center;
-
-}
-
-tfoot {
-  font-weight: bold;
-  border-top: 1px solid black;
-}
+/* FORM */
 
 form {
   margin: 60px;
   text-align: left;
 }
+
 
 input { 
   border: 1px solid black;
@@ -162,7 +139,6 @@ input {
 
 fieldset{
   background-color: rgba(232, 232, 232, 0.55);
-  padding: 10px;
 }
 
 legend{
@@ -170,4 +146,40 @@ legend{
   text-align: left;
   font-weight: bolder;
   font-size: 150%;
+}
+
+button {
+  margin: 10px;
+  float: right;
+}
+
+button:hover {
+  background:rgba(155, 155, 155, 0.55);
+}
+
+/* TABLE */
+
+table {
+  /* source from granneman.com*/
+  margin-left:auto; 
+  margin-right:auto;
+  font-size: 14px;
+
+}
+
+th{
+  background-color: rgba(155, 155, 155, 0.55);
+  padding: 10px;
+  font-weight: bold;
+}
+
+td{
+  background-color: rgba(232, 232, 232, 0.55);
+  padding: 10px;
+  text-align: center;
+}
+
+tfoot {
+  font-weight: bold;
+  border-top: 1px solid black;
 }

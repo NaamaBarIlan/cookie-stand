@@ -128,7 +128,7 @@ function makeHeaderRow(){
 
   // create, content, append total cell
   thEl = document.createElement('th');
-  thEl.textContent = 'Daily Location Total';
+  thEl.textContent = 'Daily Total';
   trEl.appendChild(thEl);
 
   // append the row to the table
