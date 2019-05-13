@@ -6,34 +6,54 @@
         <title>"Pat's Salmon Cookies"</title>
         <link href = "css/reset.css"  type = "text/css" rel = "stylesheet" />
         <link href = "css/style.css"  type = "text/css" rel = "stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Roboto" rel="stylesheet">
 
     </head>
 
     <body>
+        
+        <header>
+            <nav>
+                <img src="img/chinook.jpg" alt="logo" title="logo"/>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">All Locations</a></li>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul> 
+            </nav>
+        </header>
 
-        <h1>Pat's Salmon Cookies</h1>
+        <main>
 
-        <form id="new-store-form">
-            <fieldset>
-                <legend>Add a New Store</legend>
+            <h1>Pat's Salmon Cookies</h1>
 
-                <input name="storelocation" type="text" size="20" placeholder="Store Location" required/>
+            <form id="new-store-form">
+                <fieldset>
+                    <legend>Add a New Store</legend>
 
-                <input name="mincust" type="text" size="30" placeholder="Min number of customers per hour" required/>
+                    <input name="storelocation" type="text" size="20" placeholder="Store Location" required/>
 
-                <input name="maxcust" type="text" size="30" placeholder="Max number of customers per hour" required/>
+                    <input name="mincust" type="text" size="30" placeholder="Min number of customers per hour" required/>
 
-                <input name="avgCookieSale" type="text" size="40" placeholder="Avg number of cookies per customer" required/>
+                    <input name="maxcust" type="text" size="30" placeholder="Max number of customers per hour" required/>
 
-                <button type="submit">Add new store</button>
+                    <input name="avgCookieSale" type="text" size="30" placeholder="Avg cookies per customer" required/>
 
-            </fieldset>
-        </form>
+                    <button type="submit">Add new store</button>
 
-        <table id="pats-salmon-cookies"></table>
+                </fieldset>
+            </form>
 
-        <script src="js/app.js" rel = "stylesheet"></script> 
+            <table id="pats-salmon-cookies"></table>
+
+        </main>
+
+        <div id="footer">
+            <img src="img/frosted-cookie.jpg" alt="Footer Image" title="Footer Image"/>
+        </div>
+
+            <script src="js/app.js" rel = "stylesheet"></script> 
 
     </body>
 
