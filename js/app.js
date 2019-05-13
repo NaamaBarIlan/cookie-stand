@@ -36,7 +36,6 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
 
   // Each stor's hourly sales
   this.hourlySales = [];
-
   this.dailyTotal = 0;
   this.hourlySalesCalc = function(){
     for(var i =0; i < storeHours.length; i++){
@@ -59,8 +58,10 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
       tdEL = document.createElement('td');
       tdEL.textContent = this.hourlySales[i];
       trEl.appendChild(tdEL);
+      // console.log('hourlySales is ' + this.hourlySales);
     }
   
+
     // create, content, append total cell
     tdEL = document.createElement('td');
     tdEL.textContent = this.dailyTotal;
@@ -73,8 +74,9 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   this.dailyTotalSum = function(){
     for (var i = 0; i < this.hourlySales.length; i++){
       this.dailyTotal += this.hourlySales[i];
+      console.log(this.dailyTotalSum);
     }
-    // console.log(this.dailyTotalSum);
+    
   };
   this.allCall = function(){
     this.hourlySalesCalc();
@@ -84,12 +86,6 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   allStores.push(this);
 }
 
-// // render all data of each istance
-// function renderAll(){
-//   for (var i = 0; i < allStores.length; i++){
-//     allStores[i].makeDataRows();
-//   }
-// }
 
 // STORE INSTANCES
 
