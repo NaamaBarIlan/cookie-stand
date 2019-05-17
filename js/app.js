@@ -38,6 +38,7 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   this.hourlySales = [];
   this.dailyTotal = 0;
   this.hourlySalesCalc = function(){
+    this.hourlySales = [];
     for(var i =0; i < storeHours.length; i++){
       this.hourlySales.push(Math.ceil(getRandomIntInclusive(this.minCust, this.maxCust) * this.avgCookieSale));
     }
@@ -72,6 +73,7 @@ function Store(storeLocation, minCust, maxCust, avgCookieSale){
   };
 
   this.dailyTotalSum = function(){
+    this.dailyTotal = 0;
     for (var i = 0; i < this.hourlySales.length; i++){
       this.dailyTotal += this.hourlySales[i];
       console.log(this.dailyTotalSum);
@@ -181,6 +183,14 @@ function footerHourlyTotalsCalc (){
   }
 }
 
+// Render all 
+
+function renderAllInstances(){
+  for(var i = 0; i < allStores.length; i++){
+    allStores[i].allCall();
+  }
+}
+
 // EVENT HANDLER
 
 // the event handler should take the data from the input field, pass it into the constructor function,
@@ -199,8 +209,6 @@ function handleFormSubmit(event){
   var minCustomers = event.target.mincust.value;
   var maxCustomers = event.target.maxcust.value;
   var avgCookieSale = event.target.avgCookieSale.value;
-
-
 
   // validate form data - done in html
 
@@ -222,15 +230,16 @@ function handleFormSubmit(event){
 
   // Repaint the page - render all
 
-  // renderAll();
   makeHeaderRow();
 
-  pike.allCall();
-  seaTac.allCall();
-  seattleCenter.allCall();
-  capitolHill.allCall();
-  alki.allCall();
-  newStore.allCall();
+  renderAllInstances();
+
+  // pike.allCall();
+  // seaTac.allCall();
+  // seattleCenter.allCall();
+  // capitolHill.allCall();
+  // alki.allCall();
+  // newStore.allCall();
 
   footerHourlyTotalsCalc ();
   makeFooterRow();
